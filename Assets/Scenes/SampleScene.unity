@@ -205,13 +205,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09229593, y: -0.7010574, z: 0.09229593, w: 0.7010574}
-  m_LocalPosition: {x: 8, y: 2.79, z: 0}
+  m_LocalRotation: {x: 0.27059805, y: -0.6532815, z: 0.27059805, w: 0.6532815}
+  m_LocalPosition: {x: 16.7, y: 32.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 15, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: -90, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +377,16 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!82 &576084270 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8256946839377818071, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+  m_PrefabInstance: {fileID: 6871828442210864768}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &576084271 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 9046214803470071900, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+  m_PrefabInstance: {fileID: 6871828442210864768}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,11 +540,56 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 20, y: 1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1477557646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1477557647}
+  - component: {fileID: 1477557648}
+  m_Layer: 0
+  m_Name: SkidController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1477557647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477557646}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1477557648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477557646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f384837c0c3e044aa839f5b999d23f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skidmarksMaterial: {fileID: 2100000, guid: 2ff7168e6deb74a2995cb7db1a4c1c9d, type: 2}
 --- !u!1001 &6871828442210864768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -543,13 +598,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2438024259248627547, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: m_SuspensionSpring.damper
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438024259248627547, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2860873843362972770, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2860873843362972770, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2860873843362972770, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
       propertyPath: m_LocalPosition.z
@@ -583,10 +646,62 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4736694276393102372, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: skidmarksController
+      value: 
+      objectReference: {fileID: 1477557648}
+    - target: {fileID: 4788197774737743436, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: highAccel
+      value: 
+      objectReference: {fileID: 576084270}
+    - target: {fileID: 4788197774737743436, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: skidSound
+      value: 
+      objectReference: {fileID: 576084271}
+    - target: {fileID: 4788197774737743436, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: maxBrakeTorque
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369420885709930879, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: m_SuspensionSpring.damper
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369420885709930879, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5631515449152062129, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: m_SuspensionSpring.damper
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 5631515449152062129, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5937677447976567934, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: skidmarksController
+      value: 
+      objectReference: {fileID: 1477557648}
+    - target: {fileID: 6529695813613855584, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: skidmarksController
+      value: 
+      objectReference: {fileID: 1477557648}
     - target: {fileID: 7745814334328030582, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
       propertyPath: m_Name
       value: PurpleJeep
       objectReference: {fileID: 0}
+    - target: {fileID: 8010910376838476064, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: m_SuspensionSpring.damper
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010910376838476064, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8081132517027179945, guid: 2d17f579d62bc9a4db7a00e71e72ea63, type: 3}
+      propertyPath: skidmarksController
+      value: 
+      objectReference: {fileID: 1477557648}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -601,3 +716,4 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 1285874160}
   - {fileID: 6871828442210864768}
+  - {fileID: 1477557647}

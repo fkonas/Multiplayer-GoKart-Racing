@@ -14,3 +14,11 @@ Bölüm 2: Vehicle Setup /////////////////////////
 9. Wheel Physics Part 4
 10. Driving Mechanics
 
+Bölüm 3: Vehicle Special Effects /////////////////////////
+
+11. Skidding Sounds and Skid Marks
+12. Improved Skidding
+13. Wheel Smoke
+14. Brake Lights
+15. Revving the Engine Part 1
+16. Revving the Engine Part 2
