@@ -22,3 +22,14 @@ Bölüm 3: Vehicle Special Effects /////////////////////////
 14. Brake Lights
 15. Revving the Engine Part 1
 16. Revving the Engine Part 2
+
+Bölüm 4: Basic NPC Vehicle Behaviour /////////////////////////
+
+17. Changing Drivers
+18. Waypoints
+19. Driving a Circuit with an NPC
+20. Auto Flipping
+21. Antiroll
+22. Normalised Braking Part 1
+23. Normalised Braking Part 2
+24. Acceleration
