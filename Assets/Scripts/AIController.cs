@@ -1,84 +1,117 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
-
     public Circuit circuit;
-    public float brakingSensitivity = 3f;
+    public float brakingSensitivity = 1f;
     Drive ds;
     public float steeringSensitivity = 0.01f;
-    public float accelSensitivity = 0.3f;
+    public float accelSensitivity = 1f;
     Vector3 target;
     Vector3 nextTarget;
     int currentWP = 0;
     float totalDistanceToTarget;
 
+    GameObject tracker;
+    int currentTrackerWP = 0;
+    public float lookAhead = 10;
 
+    float lastTimeMoving = 0;
+
+
+    // Start is called before the first frame update
     void Start()
     {
         ds = this.GetComponent<Drive>();
         target = circuit.waypoints[currentWP].transform.position;
         nextTarget = circuit.waypoints[currentWP + 1].transform.position;
         totalDistanceToTarget = Vector3.Distance(target, ds.rb.gameObject.transform.position);
+
+        tracker = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+        DestroyImmediate(tracker.GetComponent<Collider>());
+        tracker.GetComponent<MeshRenderer>().enabled = false;
+        tracker.transform.position = ds.rb.gameObject.transform.position;
+        tracker.transform.rotation = ds.rb.gameObject.transform.rotation;
+
+        this.GetComponent<Ghost>().enabled = false;
     }
 
-    bool isJump = false;
 
+    void ProgressTracker()
+    {
+        Debug.DrawLine(ds.rb.gameObject.transform.position, tracker.transform.position);
+
+        if (Vector3.Distance(ds.rb.gameObject.transform.position, tracker.transform.position) > lookAhead) return;
+
+        tracker.transform.LookAt(circuit.waypoints[currentTrackerWP].transform.position);
+        tracker.transform.Translate(0, 0, 1.0f);  //speed of tracker
+
+        if (Vector3.Distance(tracker.transform.position, circuit.waypoints[currentTrackerWP].transform.position) < 1)
+        {
+            currentTrackerWP++;
+            if (currentTrackerWP >= circuit.waypoints.Length)
+                currentTrackerWP = 0;
+        }
+
+    }
+
+    void ResetLayer()
+    {
+        ds.rb.gameObject.layer = 0;
+        this.GetComponent<Ghost>().enabled = false;
+
+    }
+
+    // Update is called once per frame
     void Update()
     {
-        Vector3 localTarget = ds.rb.gameObject.transform.InverseTransformPoint(target);
-        Vector3 nextLocalTarget = ds.rb.gameObject.transform.InverseTransformPoint(nextTarget);
-        float distanceToTarget = Vector3.Distance(target, ds.rb.gameObject.transform.position);
+        ProgressTracker();
+        Vector3 localTarget;
+        float targetAngle;
 
-        float targetAngle = Mathf.Atan2(localTarget.x, localTarget.z) * Mathf.Rad2Deg;
-        float nextTargetAngle = Mathf.Atan2(nextLocalTarget.x, nextLocalTarget.z) * Mathf.Rad2Deg;
+        if (ds.rb.angularVelocity.magnitude > 1)
+            lastTimeMoving = Time.time;
+
+        //if (Time.time > lastTimeMoving + 4)
+        //{
+        //    ds.rb.gameObject.transform.position =
+        //        circuit.waypoints[currentTrackerWP].transform.position + Vector3.up * 2 +
+        //        new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+        //    tracker.transform.position = ds.rb.gameObject.transform.position;
+        //    ds.rb.gameObject.layer = 8;
+        //    this.GetComponent<Ghost>().enabled = true;
+        //    Invoke("ResetLayer", 3);
+        //}
+
+        if (Time.time < ds.rb.GetComponent<AvoidDetector>().avoidTime)
+        {
+            localTarget = tracker.transform.right * ds.rb.GetComponent<AvoidDetector>().avoidPath;
+        }
+        else
+        {
+            localTarget = ds.rb.gameObject.transform.InverseTransformPoint(tracker.transform.position);
+        }
+
+        targetAngle = Mathf.Atan2(localTarget.x, localTarget.z) * Mathf.Rad2Deg;
 
         float steer = Mathf.Clamp(targetAngle * steeringSensitivity, -1, 1) * Mathf.Sign(ds.currentSpeed);
 
-        float distanceFactor = distanceToTarget / totalDistanceToTarget;
         float speedFactor = ds.currentSpeed / ds.maxSpeed;
 
-        float accel = Mathf.Lerp(accelSensitivity, 1, distanceFactor);
-        float brake = Mathf.Lerp((-1 - Mathf.Abs(nextTargetAngle)) * brakingSensitivity, 1 + speedFactor, 1 - distanceFactor);
+        float corner = Mathf.Clamp(Mathf.Abs(targetAngle), 0, 90);
+        float cornerFactor = corner / 90.0f;
 
-        if(Mathf.Abs(nextTargetAngle) > 20)
-        {
-            brake += 0.8f;
-            accel -= 0.8f;
-        }
-        if (isJump)
-        {
-            accel = 1;
-            brake = 0;
-            Debug.Log("Jump");
-        }
+        float brake = 0;
+        if (corner > 10 && speedFactor > 0.1f)
+            brake = Mathf.Lerp(0, 1 + speedFactor * brakingSensitivity, cornerFactor);
 
-        //Debug.Log("Brake: " + brake + " Accel: " + accel + " Speed: " + ds.rb.angularVelocity.magnitude);
-
-        //if (distanceToTarget < 5) { brake = 0.8f; accel = 0.1f; }
+        float accel = 1f;
+        if (corner > 20 && speedFactor > 0.2f)
+            accel = Mathf.Lerp(0, 1 * accelSensitivity, 1 - cornerFactor);
 
         ds.Go(accel, steer, brake);
-
-        if (distanceToTarget < 4) //threshold, make larger if car starts to circle waypoints
-        {
-            currentWP++;
-            if (currentWP >= circuit.waypoints.Length) 
-                currentWP = 0;
-            target = circuit.waypoints[currentWP].transform.position;
-
-            if (currentWP >= circuit.waypoints.Length -1)
-                nextTarget = circuit.waypoints[0].transform.position;
-            else
-                nextTarget = circuit.waypoints[currentWP + 1].transform.position;
-
-            totalDistanceToTarget = Vector3.Distance(target, ds.rb.gameObject.transform.position);
-
-            if (ds.rb.gameObject.transform.InverseTransformPoint(target).y > 5)
-            {
-                isJump = true;
-            }
-            else isJump = false;
-        }
 
         ds.CheckForSkid();
         ds.CalculateEngineSound();

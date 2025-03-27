@@ -4,6 +4,7 @@ public class FlipCar : MonoBehaviour
 {
     Rigidbody rb;
     float lastTimeChecked;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,7 +13,7 @@ public class FlipCar : MonoBehaviour
 
     void RightCar()
     {
-        this.transform.position = Vector3.up;
+        this.transform.position += Vector3.up;
         this.transform.rotation = Quaternion.LookRotation(this.transform.forward);
     }
 
