@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Drive : MonoBehaviour
 {
@@ -32,6 +33,11 @@ public class Drive : MonoBehaviour
     float currentGearPerc;
     public float maxSpeed = 200;
 
+    public GameObject playerNamePrefab;
+    public Renderer jeepMesh;
+
+    string[] aiNames = { "Gunes", "Roxy", "Sirnas", "Emel", "Ferhat" };
+
     public void StartSkidTrail(int i)
     {
         if (skidTrails[i] == null)
@@ -61,6 +67,16 @@ public class Drive : MonoBehaviour
             skidSmoke[i].Stop();
         }
         brakeLight.SetActive(false);
+
+        GameObject playerName = Instantiate(playerNamePrefab);
+        playerName.GetComponent<NameUIController>().target = rb.gameObject.transform;
+
+        if (this.GetComponent<AIController>().enabled)
+            playerName.GetComponent<Text>().text = aiNames[Random.Range(0, aiNames.Length)];
+        else
+            playerName.GetComponent<Text>().text = "Player";
+
+        playerName.GetComponent<NameUIController>().carRend = jeepMesh;
     }
 
     public void CalculateEngineSound()

@@ -67,6 +67,12 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!RiceMonitor.racing)
+        {
+            lastTimeMoving = Time.time;
+            return;
+        }
+
         ProgressTracker();
         Vector3 localTarget;
         float targetAngle;
@@ -74,16 +80,15 @@ public class AIController : MonoBehaviour
         if (ds.rb.angularVelocity.magnitude > 1)
             lastTimeMoving = Time.time;
 
-        //if (Time.time > lastTimeMoving + 4)
-        //{
-        //    ds.rb.gameObject.transform.position =
-        //        circuit.waypoints[currentTrackerWP].transform.position + Vector3.up * 2 +
-        //        new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
-        //    tracker.transform.position = ds.rb.gameObject.transform.position;
-        //    ds.rb.gameObject.layer = 8;
-        //    this.GetComponent<Ghost>().enabled = true;
-        //    Invoke("ResetLayer", 3);
-        //}
+        if (Time.time > lastTimeMoving + 4)
+        {
+            //ds.rb.gameObject.transform.position = circuit.waypoints[currentTrackerWP].transform.position + Vector3.up * 2 + new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+
+            tracker.transform.position = ds.rb.gameObject.transform.position;
+            ds.rb.gameObject.layer = 8;
+            this.GetComponent<Ghost>().enabled = true;
+            Invoke("ResetLayer", 3);
+        }
 
         if (Time.time < ds.rb.GetComponent<AvoidDetector>().avoidTime)
         {
