@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,11 +15,13 @@ public class AIController : MonoBehaviour
     float totalDistanceToTarget;
 
     GameObject tracker;
-    int currentTrackerWP = 0;
+    public int currentTrackerWP = 0;
     public float lookAhead = 10;
 
     float lastTimeMoving = 0;
 
+    CheckpointManager cpm;
+    float finishSteer;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,7 @@ public class AIController : MonoBehaviour
         tracker.transform.rotation = ds.rb.gameObject.transform.rotation;
 
         this.GetComponent<Ghost>().enabled = false;
+        finishSteer = Random.Range(-1.0f, 1.0f);
     }
 
 
@@ -61,30 +64,42 @@ public class AIController : MonoBehaviour
     {
         ds.rb.gameObject.layer = 0;
         this.GetComponent<Ghost>().enabled = false;
-
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (!RiceMonitor.racing)
+        if (!RaceMonitor.racing)
         {
             lastTimeMoving = Time.time;
             return;
         }
 
+        if (cpm == null)
+            cpm = ds.rb.GetComponent<CheckpointManager>();
+
+        if (cpm.lap == RaceMonitor.totalLaps + 1)
+        {
+            ds.highAccel.Stop();
+            ds.Go(0, finishSteer, 0);
+            return;
+        }
+
+
         ProgressTracker();
+
         Vector3 localTarget;
         float targetAngle;
 
-        if (ds.rb.angularVelocity.magnitude > 1)
+        if (ds.rb.linearVelocity.magnitude > 1)
             lastTimeMoving = Time.time;
 
-        if (Time.time > lastTimeMoving + 4)
+        if (Time.time > lastTimeMoving + 4 || ds.rb.gameObject.transform.position.y < -5)
         {
-            //ds.rb.gameObject.transform.position = circuit.waypoints[currentTrackerWP].transform.position + Vector3.up * 2 + new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
-
-            tracker.transform.position = ds.rb.gameObject.transform.position;
+            ds.rb.gameObject.transform.position = cpm.lastCP.transform.position + Vector3.up * 2;
+            ds.rb.gameObject.transform.rotation = cpm.lastCP.transform.rotation;
+            tracker.transform.position = cpm.lastCP.transform.position;
             ds.rb.gameObject.layer = 8;
             this.GetComponent<Ghost>().enabled = true;
             Invoke("ResetLayer", 3);
@@ -98,7 +113,6 @@ public class AIController : MonoBehaviour
         {
             localTarget = ds.rb.gameObject.transform.InverseTransformPoint(tracker.transform.position);
         }
-
         targetAngle = Mathf.Atan2(localTarget.x, localTarget.z) * Mathf.Rad2Deg;
 
         float steer = Mathf.Clamp(targetAngle * steeringSensitivity, -1, 1) * Mathf.Sign(ds.currentSpeed);
@@ -109,16 +123,29 @@ public class AIController : MonoBehaviour
         float cornerFactor = corner / 90.0f;
 
         float brake = 0;
-        if (corner > 10 && speedFactor > 0.1f)
+        if (corner > 10 && speedFactor > 0.4f)
             brake = Mathf.Lerp(0, 1 + speedFactor * brakingSensitivity, cornerFactor);
 
+
         float accel = 1f;
-        if (corner > 20 && speedFactor > 0.2f)
+        if (corner > 20 && speedFactor > 0.4f)
             accel = Mathf.Lerp(0, 1 * accelSensitivity, 1 - cornerFactor);
+
+
+        float prevTorque = ds.torque;
+        if (speedFactor < 0.3f && ds.rb.gameObject.transform.forward.y > 0.1f)
+        {
+           ds.torque *= 3.0f;
+           accel = 1f;
+           brake = 0;
+        }
+
 
         ds.Go(accel, steer, brake);
 
         ds.CheckForSkid();
         ds.CalculateEngineSound();
+
+        ds.torque = prevTorque;
     }
 }

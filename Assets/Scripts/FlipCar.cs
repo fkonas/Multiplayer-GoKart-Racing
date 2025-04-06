@@ -1,3 +1,5 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FlipCar : MonoBehaviour
@@ -5,7 +7,7 @@ public class FlipCar : MonoBehaviour
     Rigidbody rb;
     float lastTimeChecked;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
@@ -20,7 +22,7 @@ public class FlipCar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.up.y > 0.5f || rb.angularVelocity.magnitude > 1)
+        if (transform.up.y > 0.5f || rb.linearVelocity.magnitude > 1)
         {
             lastTimeChecked = Time.time;
         }

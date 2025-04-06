@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +24,7 @@ public class Drive : MonoBehaviour
 
     public Rigidbody rb;
     public float gearLength = 3;
-    public float currentSpeed { get { return rb.angularVelocity.magnitude * gearLength; } }
+    public float currentSpeed { get { return rb.linearVelocity.magnitude * gearLength; } }
     public float lowPitch = 1f;
     public float highPitch = 6f;
     public int numGears = 5;
@@ -36,7 +36,7 @@ public class Drive : MonoBehaviour
     public GameObject playerNamePrefab;
     public Renderer jeepMesh;
 
-    string[] aiNames = { "Gunes", "Roxy", "Sirnas", "Emel", "Ferhat" };
+    string[] aiNames = { "Adrian", "Lee", "Penny", "Merlin", "Tabytha" };
 
     public void StartSkidTrail(int i)
     {
@@ -74,18 +74,19 @@ public class Drive : MonoBehaviour
         if (this.GetComponent<AIController>().enabled)
             playerName.GetComponent<Text>().text = aiNames[Random.Range(0, aiNames.Length)];
         else
-            playerName.GetComponent<Text>().text = "Player";
+            playerName.GetComponent<Text>().text = "Human";
 
         playerName.GetComponent<NameUIController>().carRend = jeepMesh;
     }
 
-    public void CalculateEngineSound()
+   public void CalculateEngineSound()
     {
         float gearPercentage = (1 / (float)numGears);
-        float targetGearFactor = Mathf.InverseLerp(gearPercentage * currentGear, gearPercentage * (currentGear + 1), Mathf.Abs(currentSpeed / maxSpeed));
+        float targetGearFactor = Mathf.InverseLerp(gearPercentage * currentGear, gearPercentage * (currentGear + 1),
+                                                    Mathf.Abs(currentSpeed / maxSpeed));
         currentGearPerc = Mathf.Lerp(currentGearPerc, targetGearFactor, Time.deltaTime * 5f);
 
-        var gearNumFactor = currentGear / (float)numGears;
+        var gearNumFactor = currentGear/ (float) numGears;
         rpm = Mathf.Lerp(gearNumFactor, 1, currentGearPerc);
 
         float speedPercentage = Mathf.Abs(currentSpeed / maxSpeed);
@@ -114,8 +115,8 @@ public class Drive : MonoBehaviour
         else
             brakeLight.SetActive(false);
 
-        float thrustTorque = 0;
-        if (currentSpeed < maxSpeed)
+        float thrustTorque = 0; 
+        if(currentSpeed < maxSpeed)
             thrustTorque = accel * torque;
 
         for (int i = 0; i < 4; i++)

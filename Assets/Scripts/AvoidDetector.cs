@@ -1,11 +1,13 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AvoidDetector : MonoBehaviour
 {
     public float avoidPath = 0;
     public float avoidTime = 0;
-    public float wanderDistance = 4;
-    public float avoidLenght = 1;
+    public float wanderDistance = 4; //avoiding distance
+    public float avoidLength = 1;   //1 sec
 
     void OnCollisionExit(Collision col)
     {
@@ -18,7 +20,7 @@ public class AvoidDetector : MonoBehaviour
         if (col.gameObject.tag != "car") return;
 
         Rigidbody otherCar = col.rigidbody;
-        avoidTime = Time.time + avoidLenght;
+        avoidTime = Time.time + avoidLength;
 
         Vector3 otherCarLocalTarget = transform.InverseTransformPoint(otherCar.gameObject.transform.position);
         float otherCarAngle = Mathf.Atan2(otherCarLocalTarget.x, otherCarLocalTarget.z);

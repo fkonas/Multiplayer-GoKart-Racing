@@ -1,3 +1,5 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AltAIController : MonoBehaviour
@@ -7,7 +9,7 @@ public class AltAIController : MonoBehaviour
     int currentWP = 0;
     float speed = 20.0f;
     float accuracy = 1.0f;
-    float rotSpeed = 2.0f;
+    //float rotSpeed = 2.0f;
 
     // Start is called before the first frame update
     void Start()

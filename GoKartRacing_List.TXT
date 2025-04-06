@@ -42,3 +42,32 @@ Bölüm 5: Improved NPC Vehicle Behaviour /////////////////////////
 27. Controlling Tracking Braking and Acceleration
 28. Avoid Other Drivers
 29. Getting Unstuck
+
+
+
+Bölüm 6: Graphical User Signal /////////////////////////
+
+30. The Starting Signal
+31. A Couple of Challenges
+32. First and Third Player Switching
+33. The Heads Up Display Part 1
+34. The Heads Up Display Part 2
+35. The Heads Up Display Part 3
+36. Displaying the Players Name Part 1
+37. Displaying the Players Name Part 2
+
+Bölüm 7 : Counting Laps
+
+38. Setting up a Checkpoint System
+39. Detecting Checkpoints
+40. Displaying Checkpoint and Lap Counter
+41. Checking the Checkpoints
+42. Checking out the Player
+43. Calculating Places Part 1
+44. Calculating Places Part 2
+45. Displaying the Leaderboard
+46. Getting Cars Out of Trouble Challenges
+47. Cycling Camera through AI Players
+48. Who's the Winner
+49. Game Over
+50. Resetting the Leaderboard

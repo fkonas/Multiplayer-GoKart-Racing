@@ -29,7 +29,6 @@ public class Ghost : MonoBehaviour
     void OnDisable()
     {
         if (rends == null) return;
-
         foreach (Renderer r in rends)
         {
             r.material.SetFloat("_Mode", 0.0f);
