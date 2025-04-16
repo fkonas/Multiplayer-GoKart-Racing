@@ -26,6 +26,9 @@ public class AIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (circuit == null)
+            circuit = GameObject.FindGameObjectWithTag("circuit").GetComponent<Circuit>();
+
         ds = this.GetComponent<Drive>();
         target = circuit.waypoints[currentWP].transform.position;
         nextTarget = circuit.waypoints[currentWP + 1].transform.position;

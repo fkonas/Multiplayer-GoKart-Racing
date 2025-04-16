@@ -71,3 +71,9 @@ Bölüm 7 : Counting Laps
 48. Who's the Winner
 49. Game Over
 50. Resetting the Leaderboard
+
+Bölüm 8 : Custom Play
+
+51. Creating Car Prefabs
+52. Creating a Main Menu Screen
+53. Selecting a Car

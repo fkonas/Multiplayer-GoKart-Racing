@@ -10,24 +10,13 @@ public class DisplayLeaderboard : MonoBehaviour
     public Text third;
     public Text fourth;
 
-    void Start()
-    {
-        Leaderboard.Reset();
-    }
-
     void LateUpdate()
     {
         List<string> places = Leaderboard.GetPlaces();
-        if (places.Count > 0)
-            first.text = places[0];
-        if (places.Count > 1)
-            second.text = places[1];
-        if (places.Count > 2)
-            third.text = places[2];
-        if (places.Count > 3)
-            fourth.text = places[3];
-        Debug.Log("places------");
-        foreach (string s in places)
-            Debug.Log("places: " + s);
+        first.text = places[0];
+        second.text = places[1];
+        third.text = places[2];
+        fourth.text = places[3];
+
     }
 }

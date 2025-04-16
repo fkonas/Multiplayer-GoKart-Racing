@@ -22,12 +22,6 @@ public class Leaderboard
     static Dictionary<int, PlayerStats> lb = new Dictionary<int, PlayerStats>();
     static int carsRegistered = -1;
 
-    public static void Reset()
-    {
-        lb.Clear();
-        carsRegistered = -1;
-    }
-
     public static int RegisterCar(string name)
     {
         carsRegistered++;
@@ -48,7 +42,7 @@ public class Leaderboard
         foreach (KeyValuePair<int, PlayerStats> pos in lb.OrderByDescending(key => key.Value.position).ThenBy(key => key.Value.time))
         {
             index++;
-            if (pos.Key == rego)
+            if(pos.Key == rego)
                 switch (index)
                 {
                     case 1: return "First";

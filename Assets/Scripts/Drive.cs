@@ -74,7 +74,7 @@ public class Drive : MonoBehaviour
         if (this.GetComponent<AIController>().enabled)
             playerName.GetComponent<Text>().text = aiNames[Random.Range(0, aiNames.Length)];
         else
-            playerName.GetComponent<Text>().text = "Human";
+            playerName.GetComponent<Text>().text = PlayerPrefs.GetString("PlayerName");
 
         playerName.GetComponent<NameUIController>().carRend = jeepMesh;
     }
