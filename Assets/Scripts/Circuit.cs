@@ -1,29 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Circuit : MonoBehaviour
-{
+public class Circuit : MonoBehaviour {
+
     public GameObject[] waypoints;
 
-    void OnDrawGizmos()
-    {
+    private void OnDrawGizmos() {
+
         DrawGizmos(false);
     }
 
-    void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmosSelected() {
+
         DrawGizmos(true);
     }
 
-    void DrawGizmos(bool selected)
-    {
+    void DrawGizmos(bool selected) {
+
         if (selected == false) return;
-        if (waypoints.Length > 1)
-        {
+
+        if (waypoints.Length > 1) {
+
             Vector3 prev = waypoints[0].transform.position;
-            for (int i = 1; i < waypoints.Length; i++)
-            {
+            for (int i = 1; i < waypoints.Length; ++i) {
+
                 Vector3 next = waypoints[i].transform.position;
                 Gizmos.DrawLine(prev, next);
                 prev = next;

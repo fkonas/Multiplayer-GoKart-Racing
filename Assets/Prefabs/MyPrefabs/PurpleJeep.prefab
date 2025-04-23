@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1349159325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8760443930196003273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb29faac7ed39545a35ba313dbaf3c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &1644732320042647774
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8016435933697034519, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_Name
+      value: PurpleJeep
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016435933697034518, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016435933697034518, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016435933697034518, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 26.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016435933697034518, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016435933697034518, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016435933697034518, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016435933697034518, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016435933697034518, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016435933697034518, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016435933697034518, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016435933697034518, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3187301363458714180, guid: 46755b444bc8c8148b9d39403d3736dc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a8595f8bb80c60341b6957e2fe9d8b77, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 46755b444bc8c8148b9d39403d3736dc, type: 3}
+--- !u!1 &8760443930196003273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8016435933697034519, guid: 46755b444bc8c8148b9d39403d3736dc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1644732320042647774}
+  m_PrefabAsset: {fileID: 0}

@@ -77,3 +77,18 @@ Bölüm 8 : Custom Play
 51. Creating Car Prefabs
 52. Creating a Main Menu Screen
 53. Selecting a Car
+
+Bölüm 9 : Networking
+
+54. Photon Network Setup
+55. Understanding Networks
+56. Photon Prefabs
+57. Starting a Multiplayer Game
+58. Creating Networked Players
+59. Creating Networked Names
+60. Understanding Players and Clients
+61. Starting the Race on External Clients
+62. Adding Networked AI Players
+63. Don't Forget the Leaderboard
+64. Resetting the Networked Race
+65. Final Kart Project

@@ -1,19 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Ghost : MonoBehaviour
-{
+public class Ghost : MonoBehaviour {
     Renderer[] rends;
     float alpha = 1;
     float flashSpeed = 2;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         rends = this.gameObject.GetComponentsInChildren<Renderer>();
-        foreach (Renderer r in rends)
-        {
+        foreach (Renderer r in rends) {
             r.material.SetFloat("_Mode", 3.0f);
             r.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
             r.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
@@ -26,11 +21,9 @@ public class Ghost : MonoBehaviour
         }
     }
 
-    void OnDisable()
-    {
+    void OnDisable() {
         if (rends == null) return;
-        foreach (Renderer r in rends)
-        {
+        foreach (Renderer r in rends) {
             r.material.SetFloat("_Mode", 0.0f);
             r.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
             r.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
@@ -44,11 +37,9 @@ public class Ghost : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         alpha = 0.3f + Mathf.PingPong(Time.time * flashSpeed, 0.7f);
-        foreach (Renderer r in rends)
-        {
+        foreach (Renderer r in rends) {
             r.material.color = new Color(1, 1, 1, alpha);
         }
     }
